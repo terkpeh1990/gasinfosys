@@ -1,0 +1,118 @@
+{% load static %}{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- test -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="GAS">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="{% static  'assets/images/logo5.png' %}" type="image/x-icon">
+  <meta name="description" content="">
+
+
+  <title>Home</title>
+  <link rel="stylesheet" href="{% static  'assets/tether/tether.min.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/bootstrap/css/bootstrap-reboot.min.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/bootstrap/css/bootstrap-grid.min.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/formstyler/jquery.formstyler.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/formstyler/jquery.formstyler.theme.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/datepicker/jquery.datetimepicker.min.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/theme/css/style.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/recaptcha.css' %}">
+  <link rel="preload" as="style" href="{% static  'assets/mobirise/css/mbr-additional.css' %}">
+  <link rel="stylesheet" href="{% static  'assets/mobirise/css/mbr-additional.css' %}" type="text/css">
+
+
+
+
+
+</head>
+
+<body>
+
+  <section class="extForm cid-sg1t3kLkp4" id="extForm17-0">
+
+    <div class="mbr-overlay"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 mx-auto mbr-form form-col order-2 md-pt md-pb" data-form-type="formoid">
+          <div align="middle"><strong><a href="{% static  'build/images/Servicedeskmanual.pdf' %} " target="_blank">
+                <font color="#d83417">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download
+                  User Manual</font>
+              </a></strong></div>
+
+          <!--Login form-->
+
+
+          <div class="dragArea form-row">
+            <div class="col-lg-12">
+              <div class="mbr-section-btn align-left">
+
+                <p><a href="http://www.ghaudit.org/" target="_blank"><img src="{% static  'assets/logo1.png' %}"
+                      alt="logo" width="120"><br>
+                  </a><br>
+                  <strong>Ghana Audit Service</strong>
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <h4 mbr-theme-style="display-7" class="mbr-section-title mbr-semibold pb-1 mbr-fonts-style"
+                mbr-if="showsubTitle">Ghana Audit Service</h4>
+              <h2 class="mbr-section-title mbr-bold pb-1 mbr-fonts-style display-6">INFORMATION SYSTEMS</h2>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+              <form class="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 form-group display-4">
+                    {{ form|crispy }}
+                  </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <button type="submit" class="btn btn-sm btn-form btn-black display-4">SUBMIT</button>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <a class="btn btn-sm btn-form btn-primary display-4" href="{% url 'inventory:signup' %}">Sign Up </a>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+
+
+          </div>
+          <!--login form-->
+        </div>
+        <div class="col-lg-6 m-auto">
+          <div class="text-wrap m-auto">
+            <h3 class="mbr-section-title mbr-bold pb-1 mbr-fonts-style display-2">LOG&nbsp; IN</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script src="{% static  'assets/web/assets/jquery/jquery.min.js' %} "></script>
+  <script src="{% static  'assets/popper/popper.min.js' %} "></script>
+  <script src="{% static  'assets/tether/tether.min.js' %} "></script>
+  <script src="{% static  'assets/bootstrap/js/bootstrap.min.js' %} "></script>
+  <script src="{% static  'assets/smoothscroll/smooth-scroll.js' %} "></script>
+  <script src="{% static  'assets/formstyler/jquery.formstyler.js' %} "></script>
+  <script src="{% static  'assets/formstyler/jquery.formstyler.min.js' %} "></script>
+  <script src="{% static  'assets/datepicker/jquery.datetimepicker.full.js' %}"></script>
+  <script src="{% static  'assets/theme/js/script.js' %}"></script>
+  <script src="{% static  'assets/formoid.min.js' %}"></script>
+
+
+
+
+</body>
+
+</html>

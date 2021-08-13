@@ -1,0 +1,70 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- page content -->
+{% block content %}
+<form id="personForm" method="POST" data-agent-url="{% url 'helpdesk:ajax_load_agent' %}" novalidate>
+  {% csrf_token %}
+  <div class="p-4">
+      <div class="right_col" role="main">
+        <div class="">
+      
+      
+          <div class="clearfix"></div>
+          <div class="row d-flex justify-content-center">
+            <div class=" col-md-10 col-sm-10 contents ">
+              <div class=" new_ticket">
+                <form class="ticket-form">
+                  <div class="form-row  ">
+                    <div class="form-group col-md-6 col-sm-12">
+                      {{ form.agent_team|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-6 col-sm-12">
+                      {{ form.agent|as_crispy_field }}
+                    </div>
+                  </div>
+                  <div class="form-row  ">
+                    <div class="form-group col-md-12 col-sm-12">
+                      {{ form.reason|as_crispy_field }}
+                    </div>
+                  </div>
+      
+                  <div class="form-row">
+                    <div class="form-group col-md-12 col-sm-12">
+                      <button class="btn btn-sm btn-primary "> Submit </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+</form>
+<script>
+  $("#id_agent_team").change(function () {
+    var url = $("#personForm").attr("data-agent-url");  // get the url of the `load_cities` view
+    var AgentId = $(this).val();  // get the selected country ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        'team': AgentId     // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+        $("#id_agent").html(data);  // replace the contents of the city input with the data that came from the server
+      }
+    });
+
+  });
+</script>
+
+{% endblock content %}
+
+
+
+
+<!-- jQuery -->

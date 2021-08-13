@@ -1,0 +1,179 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="main_container">
+  <div class="right_col" role="main">
+    <div class="">
+
+
+      <div class="clearfix"></div>
+      <form class="" method="post">
+        {% csrf_token %}
+        <div class="row ">
+          <div class="col-md-8  col-sm-12 mt-2 ">
+            <div class=" row heading_dialogue  mb-4">
+              <div class="title_left mb-2 col-6">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back</span>
+              </div>
+              <div class="col-6 align-items-center ">
+
+              </div>
+            </div>
+
+            <div class="col-12 mx-auto">
+              <div class="card">
+                <h5 class="card-header">{{find_ticket.subject}}</h5>
+                <div class="card-body">
+                  <p class="card-text">{{find_ticket.description}}</p>
+                </div>
+              </div>
+              <br>
+              <hr>
+
+              {% if ticket_detal %}
+
+              <h5>Agent's Comments</h5>
+              {% for comment_detail in ticket_detal %}
+
+              <div class="card">
+                <h5 class="card-header">{{comment_detail.agent }} <span
+                    class="align-items-right">{{comment_detail.creation_date}}</span></h5>
+                <div class="card-body">
+                  <p class="card-text">{{comment_detail.content}}</p>
+                </div>
+              </div>
+              <br>
+              {% endfor %}
+
+              {% endif %}
+
+              <br>
+              <hr>
+              <div class="card">
+
+                <h5 class="card-header">Record Comment</h5>
+                <div class="card-body">
+                  <div class="form-row  ">
+                    <div class="form-group col-md-12 col-sm-12">
+                      {{ ticketcoment.content|as_crispy_field }}
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-12 col-sm-12">
+                      <button class="btn btn-md btn-danger float-right mt-1 "> Submit </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="left_tabs " style="width: 350px;">
+              <div class="heading_dialogue row ml-2">
+
+                <div class="col-6 ">
+                  Details
+                </div>
+
+              </div>
+              <div class="col-10 mx-auto">
+                <div class="card mt-2 mb-3 ml-3">
+                  <div class="card-body Responsibility ">
+                    <h5 class="mr-2">Ticket Info</h5>
+                    <div class="form-group">
+                      <label class="details_tab text-muted" for=""> Ticket ID: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.id}}</p> <br>
+                    </div>
+                    <div class="form-group">
+                      <label class="details_tab text-muted" for="">Created: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.ticket_date}}</p> <br>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="details_tab text-muted" for="">Status: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.status}}</p> <br>
+                    </div>
+                    <div class="form-group mt-1">
+                      <label class="details_tab text-muted" for="">Prority: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.prority}}</p> <br>
+                    </div>
+                    <div class="form-group mt-1">
+                      <label class="details_tab text-muted" for="">Source: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.remarks}}</p> <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {% if find_ticket %}
+              <div class="col-10 mx-auto">
+                <div class="card mt-3 ml-3">
+                  <div class="card-body Responsibility ">
+                    <h5 class="m">Responsibility</h5>
+                    <div class="form-group mt-1">
+                      <label class="details_tab text-muted" for="">Team: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.agent_team}}</p> <br>
+                    </div>
+                    <div class="form-group mt-1">
+                      <label class="details_tab text-muted" for="">Agent: </label>
+                      <p class="details_tab" style="color: #424d57;">{{find_ticket.agent}}</p> <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+              {% if escalated_details %}
+              <div class="col-10 mx-auto">
+                <div class="card mt-3 ml-3">
+                  <div class="card-body Responsibility ">
+                    <h5 class="m">Escalated Agents</h5>
+                    {% for agents in escalated_details %}
+                    <div class="form-group mt-1">
+                      <label class="details_tab text-muted" for="">Team: </label>
+                      <p class="details_tab" style="color: #424d57;">{{agents.agent_team}}</p> <br>
+                    </div>
+                    <div class="form-group ">
+                      <label class="details_tab text-muted" for="">Agent: </label>
+                      <p class="details_tab" style="color: #424d57;">{{agents.agent}}</p> <br>
+                    </div>
+                    <div class="form-group">
+                      <label class="details_tab text-muted" for="">Date: </label>
+                      <p class="details_tab" style="color: #424d57;">{{agents.escalated_date}}</p> <br>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+            </div>
+
+
+          </div>
+
+        </div>
+    </div>
+    </form>
+
+  </div>
+  <!-- /page content -->
+
+  <!-- footer content -->
+  <!-- <footer>
+       <div class="pull-right">
+         Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+       </div>
+       <div class="clearfix"></div>
+     </footer> -->
+  <!-- /footer content -->
+</div>
+</div>
+
+{% endblock content %}

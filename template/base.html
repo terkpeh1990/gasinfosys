@@ -1,0 +1,250 @@
+{% load static %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <title>User Dashboard</title>
+
+  <!-- Custom fonts for this template-->
+        <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+        <!-- Custom styles for this template-->
+        <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <!-- datatable -->
+        <link rel="stylesheet" href="{% static 'datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+
+        <!-- highcharts -->
+        <script src="https://code.highcharts.com/highcharts.src.js"></script>
+        
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    </head>
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <!-- Sidebar -->
+        {% include "sidebar.html" %}
+            
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+              <!-- Main Content -->
+               <div id="content">
+                <!-- Topbar -->
+                    {% include "navbar.html" %}
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                    <div class="container-fluid">
+                        <!-- Page Heading -->
+                          {% include "pageheading.html" %}
+                        <!-- End Page Heading -->
+                      
+                           
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6 mx-auto">
+                                    {% if messages %}
+                                    <div class="alert alert-danger  alert-dismissible fade show" role="alert">
+                                         {% for message in messages %}
+                                        <div class="" role="">
+                                            {{ message }}
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                            
+                                    {% endif %}
+                                </div>
+                                <!-- {{ content }} -->
+                            </div>
+                            {% block content %}
+
+                            {% endblock content %}    
+                    </div>
+                <!-- End Begin Page Content -->
+
+               </div>
+
+              <!-- End of Main Content -->
+             
+            </div>
+
+            <!-- End of Content Wrapper -->
+        
+        
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        {% include "scroll.html" %}
+
+        <!-- Logout Modal-->
+        {% include "logoutmodel.html" %}
+       
+        
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+        <!-- Page level plugins -->
+        <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+        <!-- Charts -->
+        <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+        <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script> 
+        <script src="{% static '/chart.js/Chart.min.js' %}"></script> 
+        <script src="{% static '/cc/chart.js/Chart.min.js' %}"></script>
+        <!-- Data table -->
+        <script src="{% static 'datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+        <script src="{% static 'datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static 'datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'jszip/jszip.min.js' %}"></script>
+        <script src="{% static 'pdfmake/pdfmake.min.js' %}"></script>
+        <script src="{% static 'pdfmake/vfs_fonts.js' %}"></script>
+        <script src="{% static 'datatables-buttons/js/buttons.html5.min.js' %}"></script>
+        <script src="{% static 'datatables-buttons/js/buttons.print.min.js' %}"></script>
+        <script src="{% static 'datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+        <script>
+            Highcharts.chart('container', {{ chart| safe }});
+            Highcharts.chart('container2', {{ chart2| safe }});
+        </script>
+
+        <Script>
+            $(function () {
+                $("#example1").DataTable({
+                    "responsive": true, "lengthChange": false, "autoWidth": false, "order": [0, 'desc'], "iDisplayLength": 5,
+                    
+                });
+                $('#example2').DataTable({
+
+                    "paging": true,
+                    "lengthChange": true,
+                    "ordering": true,
+                    "order": [0, 'desc'],
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                    
+                });
+                $('#example3').DataTable({
+                     "responsive": true, "lengthChange": false, "autoWidth": false, "order": [0, 'desc'], "iDisplayLength": 5,
+
+                });
+                $('#example4').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "iDisplayLength": 5,
+                    "ordering": true,
+                    "order": [0, 'desc'],
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+
+                });
+                $('#example5').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "iDisplayLength": 5,
+                    "ordering": true,
+                    "order": [0, 'desc'],
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "buttons": ["csv", "pdf"]
+
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example6').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "iDisplayLength": 6,
+                    "ordering": true,
+                    "order": [0, 'desc'],
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "buttons": ["csv", "pdf"]
+
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                $('#example7').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "iDisplayLength": 5,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "responsive": true,
+                    "buttons": ["csv", "pdf"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            });
+            $('#example11').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "order": [0, 'desc'],
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+            $('#example10').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "iDisplayLength": 5,
+                "ordering": true,
+
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+
+            });
+
+
+
+        </script>
+    </body>
+</html>

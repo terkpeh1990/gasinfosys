@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card mx-auto container p-3 mt-5">
+    <div class="row">
+        <div class="col-4 m-4 p-4 card details-card">
+            <div class="m-2">
+                <span class="details-label col mr-4"> Product:</span>
+                <span class=" ml-5 details-info col align-self-end ">{{item_inventory.product_id.name}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col mr-4">Restock Level :</span>
+                <span class="details-info col4 ">{{item_inventory.restock_level}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col">Yet To Be Issued :</span>
+                <span class="details-info col ">{{item_inventory.yet_to_recieve}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col">Avialable Stock :</span>
+                <span class="details-info col ">{{item_inventory.avialable_stock}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col">Allowed Quantity :</span>
+                <span class="details-info col ">{{cc}}</span>
+            </div>
+           
+
+            <div class="approve-btn-div">
+                <a id="approve-btn" class="btn btn-sm btn-outline-primary ml-2 m-4 px-5"
+                    href="{% url 'inventory:pending_requisition'  %}">Close <i class="fas fa-minus pl-3"></i>
+                </a>
+            </div>
+           
+
+
+        </div>
+
+        <form role="form" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class=" p-4 m-4">
+                <div class="row">
+        
+                    <div class="form-group mb-12 col-12">
+                        <label for="">Enter Approved Quantity</label>
+                        {{ form.quantity_issued|as_crispy_field }}
+                    </div>
+        
+                    <div class="ml-2 p-3 mt-5 d-flex justify-content-end">
+                        <button id="next-page-btn" class="btn px-4 btn-large"><span class="px-2">Save</span><i
+                                class="fas fa-arrow-right pr-1"></i></button>
+                        {% comment %} <a id="next-page-btn" class="btn px-4 btn-large" href="job-cert-adding-item.html"> <span
+                                class="px-2">Next </span>
+                            <i class="fas fa-arrow-right pr-1"></i>
+                        </a> {% endcomment %}
+        
+                    </div>
+        
+                </div>
+        </form>
+    </div>
+
+</div>
+{% endblock content %}

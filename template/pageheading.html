@@ -1,0 +1,193 @@
+<div id="topheader">
+    {% for group in request.user.groups.all %} {% if group.name == 'standarduser' %}
+        <nav class="nav nav-top mb-2">
+        
+            {% url 'inventory:User_dashboard' as userdashboard %}
+            <li class="{% if request.path == userdashboard %} active {% endif %}"><a class="nav-link" href="{% url 'inventory:User_dashboard' %}">User Dashboard</a>
+            </li>
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            <li class="nav-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}"><a class="nav-link" href="{% url 'inventory:create_requisition' %}">Requisition</a></li>
+        
+            {% url 'inventory:Assigned_Job' as assigned_job %}
+            {% url 'inventory:job_spec_view' rviv as job_spec_views %}
+            <li class="nav-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}"><a class="nav-link" href="{% url 'inventory:Assigned_Job' %}">Job specification</a></li>
+
+            {% url 'helpdesk:userdashboard' as manage_ticket %}
+            {% url 'helpdesk:Newticket' as new_ticket %}
+            {% url 'helpdesk:edituserticket' id as edit_ticket %}
+            <li
+                class="nav-item {% if request.path == manage_ticket %} active {% endif %} {% if request.path == new_ticket %} active {% endif %} {% if request.path == edit_ticket %} active {% endif %}">
+                <a class="nav-link" href="{% url 'helpdesk:userdashboard' %}">Helpdesk</a></li>
+        </nav>
+    {% elif group.name == 'agent' or group.name == 'helpdesk' or group.name == 'director'%}
+    
+    {% if request.user.profile.is_agent %}
+        
+        <nav class="nav nav-top mb-2">
+        {% url 'helpdesk:agentdashboard' as manage_ticket %}
+        <li class="nav-item {% if request.path == manage_ticket %} active {% endif %} ">
+            <a class="nav-link" href="{% url 'helpdesk:agentdashboard' %}">Helpdesk</a>
+        </li>
+        </nav>
+        
+    {% elif request.user.profile.is_helpdesk %}
+    <nav class="nav nav-top mb-2">
+    {% url 'helpdesk:helpdeskdashboard' as manage_ticket %}
+    <li class="nav-item {% if request.path == manage_ticket %} active {% endif %} ">
+        <a class="nav-link" href="{% url 'helpdesk:helpdeskdashboard' %}">Helpdesk</a>
+    </li>
+    </nav>
+        
+    {% else %}
+    <nav class="nav nav-top mb-2">
+    {% url 'helpdesk:sup' as manage_ticket %}
+    <li class="nav-item {% if request.path == manage_ticket %} active {% endif %} ">
+        <a class="nav-link" href="{% url 'helpdesk:sup' %}">Helpdesk</a>
+    </li>
+    </nav>
+       
+    {% endif %}
+    
+    {% elif group.name == 'hod' %}
+        <nav class="nav nav-top mb-2">
+        
+            {% url 'inventory:Hoddashboard' as hoddashboard %}
+            <li class="{% if request.path == hoddashboard %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'inventory:Hoddashboard' %}">User Dashboard</a>
+            </li>
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:admin_view_request'  as view_requisition %}
+            <li class="nav-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:create_requisition' %}">Requisition</a>
+            </li>
+        
+        
+            {% url 'inventory:pending_requisition' as pending_requisition %}
+            {% url 'inventory:view_request' id as view_requisition %}
+            <li
+                class="nav-item {% if request.path == pending_requisition %} active {% endif %}  {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:pending_requisition' %}">Approve Requisition</a>
+            </li>
+            {% url 'inventory:manage_job_spec' as manage_job_spec %}
+            {% url 'inventory:job_spec_view' rviv as job_spec_views %}
+            <li
+                class="nav-item {% if request.path == manage_job_spec %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:manage_job_spec' %}">Job specification</a></li>
+        
+            {% url 'helpdesk:userdashboard' as manage_ticket %}
+            {% url 'helpdesk:Newticket' as new_ticket %}
+            {% url 'helpdesk:edituserticket' id as edit_ticket %}
+            <li
+                class="nav-item {% if request.path == manage_ticket %} active {% endif %} {% if request.path == new_ticket %} active {% endif %} {% if request.path == edit_ticket %} active {% endif %}">
+                <a class="nav-link" href="{% url 'helpdesk:userdashboard' %}">Helpdesk</a>
+            </li>
+        </nav>
+    {% elif group.name == 'admin' %}
+        <nav class="nav nav-top mb-2">
+        
+            {% url 'inventory:Admin_dashboard' as admindashboard %}
+            <li class="{% if request.path == admindashboard %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'inventory:Admin_dashboard' %}">User Dashboard</a>
+            </li>
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:admin_view_request' r.d as view_requisition %}
+            <li class="nav-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:add_requisition_details' %}">Requisition</a></li>
+            
+            
+            {% url 'inventory:pending_requisition' as pending_requisition %}
+            {% url 'inventory:view_request' id as view_requisition %}
+            <li
+                class="nav-item {% if request.path == pending_requisition %} active {% endif %}  {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:pending_requisition' %}">Approve Requisition</a>
+            </li>
+
+            {% url 'inventory:awaiting_requisition' as awaiting_requisition %}
+            {% url 'inventory:admin_view_request' id as view_requisition %}
+            <li
+                class="nav-item {% if request.path == awaiting_requisition %} active {% endif %}  {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:awaiting_requisition' %}">Approval For Issueing</a>
+            </li>
+        
+            {% url 'inventory:total_requisitions' as Total %}
+            {% url 'inventory:product_forcast' as product_forcast %}
+            {% url 'inventory:yearly_forcast' as yearly_forcast %}
+            {% url 'inventory:manage_closing_stock' as manage_closing %}
+            {% url 'inventory:restocking_level' as restock_level %}
+            {% url 'inventory:Item_issued' as Item_issued %}
+            <li
+                class="nav-item {% if request.path == Total %} active {% endif %} {% if request.path == product_forcast %} active {% endif %} {% if request.path == yearly_forcast %} active {% endif %} {% if request.path == manage_closing %} active {% endif %} {% if request.path == restock_level %} active {% endif %}  {% if request.path == Item_issued %} active {% endif %} ">
+                <a class="nav-link" href="{% url 'inventory:total_requisitions' %}">Reports</a>
+            </li>
+        
+            {% url 'helpdesk:userdashboard' as manage_ticket %}
+            {% url 'helpdesk:Newticket' as new_ticket %}
+            {% url 'helpdesk:edituserticket' id as edit_ticket %}
+            <li class="nav-item {% if request.path == manage_ticket %} active {% endif %} {% if request.path == new_ticket %} active {% endif %} {% if request.path == edit_ticket %} active {% endif %}">
+                <a class="nav-link" href="{% url 'helpdesk:userdashboard' %}">Helpdesk</a>
+            </li>
+        </nav>
+    {% elif group.name == 'stores' %}
+        <nav class="nav nav-top mb-2">
+        
+            {% url 'inventory:Stores_dashboard' as storesdashboard %}
+            <li class="{% if request.path == storesdashboard %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'inventory:Stores_dashboard' %}">User Dashboard</a>
+            </li>
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:stores_view_request' r.d as view_requisition %}
+            <li
+                class="nav-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:add_requisition_details' %}">Requisition</a>
+            </li>
+        
+        
+            {% url 'inventory:approved_requisition' as approve_requisition %}
+            {% url 'inventory:stores_view_request' id as view_requisition %}
+            <li
+                class="nav-item {% if request.path == approve_requisition %} active {% endif %}  {% if request.path == view_requisition %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:approved_requisition' %}">Issue Requisition</a>
+            </li>
+        
+            {% url 'inventory:manage_inventory' as ManageInventory %}
+            <li class="nav-item {% if request.path == ManageInventory %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:manage_inventory' %}">Inventory</a>
+            </li>
+
+          
+
+            {% url 'inventory:manage_product' as Manage_Product %}
+            {% url 'inventory:create_product' as Product %}
+            {% url 'inventory:edit_product' r.id as edit_Product %}
+            {% url 'inventory:create_category' as Category %}
+            {% url 'inventory:edit_category' r.id as edit_Category %}
+            <li class="nav-item {% if request.path == Manage_Product %} active {% endif %} {% if request.path == Product %} active {% endif %} {% if request.path == edit_Product %} active {% endif %} {% if request.path == manage_category %} active {% endif %} {% if request.path == Category %} active {% endif %} {% if request.path == edit_Categoryy %} active {% endif %}">
+                <a class="nav-link" href="{% url 'inventory:manage_product' %}">Product</a>
+            </li>
+
+            {% url 'inventory:total_requisitions' as Total %}
+            {% url 'inventory:product_forcast' as product_forcast %}
+            {% url 'inventory:yearly_forcast' as yearly_forcast %}
+            {% url 'inventory:manage_closing_stock' as manage_closing %}
+            {% url 'inventory:restocking_level'  as restock_level %}
+            {% url 'inventory:Item_issued' as Item_issued %}
+            <li
+                class="nav-item {% if request.path == Total %} active {% endif %} {% if request.path == product_forcast %} active {% endif %} {% if request.path == yearly_forcast %} active {% endif %} {% if request.path == manage_closing %} active {% endif %} {% if request.path == restock_level %} active {% endif %}  {% if request.path == Item_issued %} active {% endif %} ">
+                <a class="nav-link" href="{% url 'inventory:total_requisitions' %}">Reports</a>
+            </li>
+        
+            {% url 'helpdesk:userdashboard' as manage_ticket %}
+            {% url 'helpdesk:Newticket' as new_ticket %}
+            {% url 'helpdesk:edituserticket' id as edit_ticket %}
+            <li
+                class="nav-item {% if request.path == manage_ticket %} active {% endif %} {% if request.path == new_ticket %} active {% endif %} {% if request.path == edit_ticket %} active {% endif %}">
+                <a class="nav-link" href="{% url 'helpdesk:userdashboard' %}">Helpdesk</a>
+            </li>
+        </nav>
+    {% endif %}
+    {% endfor %}
+</div>

@@ -1,0 +1,123 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <title>Welcome Page</title>
+</head>
+
+<body>
+    <div class="header m-2 d-flex justify-content-end ">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user.profile.name}}</span>
+                <img class="rounded" src="{% static 'img/profile.png' %}" alt="" width="50" height="50">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+               
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Logout
+                </a>
+                </div>
+            </li>   
+        </ul>
+    </div>
+    <div class="container-fluid ">
+        <div class="px-2 py-3 my-5 text-center ">
+            <img class="d-block mx-auto mb-4" src="{% static 'img/logo.png' %}" alt="" >
+            <h1 class="display-5 fw-bold">Welcome to the Ghana Audit service<br> Information system (GAS INFOSYS)</h1>
+            <!-- <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">
+
+                </p>
+
+            </div> -->
+        </div>
+
+
+        <div class="Apps container">
+            <div class="row text-center justify-content-center">
+  
+                <div class="col-md-4 pt-1 pb-1">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'img/inventory-management-system.jpg' %}" class="card-img-top" alt="..." height="180">
+                        <div class="card-body">
+                            <div class="bg-transparent lead">
+                            {% if request.user.profile.is_staff or request.user.profile.is_helpdesk or request.user.profile.is_agent or request.user.profile.is_supervisor %}
+                            <a href="{% url 'inventory:User_dashboard' %}" class="btn btn-lg btn-outline-success">Inventory System</a>
+                            {% elif request.user.profile.is_admin %}
+                            <a href="{% url 'inventory:Admin_dashboard' %}" class="btn btn-lg btn-outline-success">Inventory System</a>
+                            {% elif request.user.profile.is_stores %}
+                            <a href="{% url 'inventory:Stores_dashboard' %}" class="btn btn-lg btn-outline-success">Inventory System</a>
+                            {% elif request.user.profile.is_hod %}
+                            <a href="{% url 'inventory:Hoddashboard' %}" class="btn btn-lg btn-outline-success">Inventory System</a>
+                            
+                            {% endif %}
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+                <div class="col-md-4 pt-1 pb-1">  
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'img/service desk.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="bg-transparent lead">
+                                
+                                {% if request.user.profile.is_staff or request.user.profile.is_admin or request.user.profile.is_hod or request.user.profile.is_stores%}
+                                    <a href="{% url 'helpdesk:userdashboard' %}" class="btn btn-lg btn-outline-success">Service Desk</a>
+                                {% elif request.user.profile.is_helpdesk %}
+                                    <a href="{% url 'helpdesk:helpdeskdashboard' %}" class="btn btn-lg btn-outline-success">Service Desk</a>
+                                {% elif request.user.profile.is_agent %}
+                                <a href="{% url 'helpdesk:agentdashboard' %}" class="btn btn-lg btn-outline-success">Service Desk</a>
+                                {% elif request.user.profile.is_supervisor %}
+                                <a href="{% url 'helpdesk:sup' %}" class="btn btn-lg btn-outline-success">Service Desk</a>
+                                    
+                                {% endif %}
+                                    
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 pt-1 pb-1"> 
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'img/Payment.jpg' %}" class="card-img-top" alt="..." height="178">
+                        <div class="card-body">
+                            <div class="bg-transparent lead">
+                                <a href="#" class="btn btn-lg btn-outline-success">Payment Voucher System</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card mx-auto container p-3 mt-5">
+    <div class="row">
+        <div class="col-4 m-4 p-4 card details-card">
+            <div class="m-2">
+                <span class="details-label col"> Batch code:</span>
+                <span class="details-info col align-self-end ">{{req.id}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col">Requester :</span>
+                <span class="details-info col ">{{req.staff.name}}</span>
+            </div>
+
+            {% if req.status == "Approved" %}
+            <div class="m-2">
+                <span class="details-label col mr-4">Status :</span>
+
+                <span class="badge badge-pill badge-success">{{req.status}}</span>
+            </div>
+            {% elif req.status == "Issued" %}
+            <div class="m-2">
+                <span class="details-label col mr-4">Status :</span>
+
+                <span class="badge badge-pill badge-info">{{req.status}}</span>
+            </div>
+            {% else %}
+            <div class="m-2">
+                <span class="details-label col mr-4">Status :</span>
+                <span class="badge badge-pill badge-danger">{{req.status}}</span>
+            </div>
+            {% endif %}
+
+
+            
+            {% if req.status == "Awaiting Approval" %}
+            <div class="approve-btn-div">
+                <a id="approve-btn" class="btn btn-sm btn-outline-primary ml-2 m-4 px-5"
+                    href="{% url 'inventory:admin_approve_request' req.id %}">Approve <i class="fas fa-plus pl-3"></i>
+                </a>
+            </div>
+            {% else %}
+            <div class="approve-btn-div">
+                <a id="approve-btn" class="btn btn-sm btn-outline-primary ml-2 m-4 px-5"
+                    href="{% url 'inventory:awaiting_requisition'  %}">Close <i class="fas fa-minus pl-3"></i>
+                </a>
+            </div>
+            {% endif %}
+
+
+        </div>
+
+        <div class="card m-4 p-4 col items-details-card">
+            <div class="request-table d-flex justify-content-center">
+                <table class="request-table table col-10 ">
+                    <thead class="  request-table-head">
+                        <tr>
+                            <th scope="col-6">Description</th>
+                            <th scope="col-4">Quantity Requested</th>
+                            <th scope="col-4">Quantity Approved</th>
+                            <th scope="col-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="request-table-body">
+                        {% for item in detail %}
+                        <tr>
+                            <td>{{item.product}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.quantity_issued}}</td>
+                            
+                            <td>
+                                <a class="btn btn-sm btn-outline-primary rounded-circle ml-2"
+                                        href="{% url 'inventory:approve_quantity' item.id %}">
+                                        <i class="fas fa-info-circle"></i>
+                                </a>
+                            </td>
+                            
+                            
+                        </tr>
+                        {% endfor %}
+
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

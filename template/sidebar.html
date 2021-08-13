@@ -1,0 +1,351 @@
+{% load static %}
+
+
+{% for group in  request.user.groups.all %}
+
+{% if group.name == 'standarduser' or group.name == 'helpdesk'  or group.name == 'agent' or group.name == 'director' %}
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+          href="{% url 'inventory:User_dashboard' %}">
+          <div class="sidebar-brand-icon">
+            <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+          </div>
+          <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+      </div>
+    
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div style="height: 20px;"></div>
+    
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+          data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Home</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+    
+            {% url 'inventory:User_dashboard' as userdashboard %}
+            <a class="collapse-item {% if request.path == userdashboard %} active {% endif %}"
+              href="{{ userdashboard }}">Dashboard</a>
+    
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:view_reques' req.id as view_requisition %}
+            <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+              href="{{requisition}}">Requisition</a>
+    
+            {% url 'inventory:Assigned_Job' as assigned_job %}
+            {% url 'inventory:job_spec_view' jobspec.rviv as job_spec_views %}
+            <a class="collapse-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}"
+              href="{{ assigned_job}}">Job specification</a>
+          </div>
+        </div>
+      </li>
+      
+    
+    
+      <div style="height: 100px;">
+    
+      </div>
+    
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    
+    
+      <!-- Footer -->
+      {% include "footer.html" %}
+      <!-- End of Footer -->
+    
+    </ul>
+    {% elif group.name == 'admin' %}
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+          href="{% url 'inventory:Admin_dashboard' %}">
+          <div class="sidebar-brand-icon">
+            <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+          </div>
+          <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+      </div>
+    
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div style="height: 20px;"></div>
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+          data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Home</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+    
+            {% url 'inventory:Admin_dashboard' as admindashboard %}
+            <a class="collapse-item {% if request.path == admindashboard %} active {% endif %}"
+              href="{{ admindashboard }}">Dashboard</a>
+    
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:admin_view_request' req.id as view_requisition %}
+            <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+              href="{{requisition}}">Requisition</a>
+    
+            {% url 'inventory:pending_requisition' as pending_requisition %}
+            {% url 'inventory:view_request' id as view_requisition %}
+            <a class="collapse-item {% if request.path == pending_requisition %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}"
+              href="{{ pending_requisition}}">Approve Requisition</a>
+    
+            {% url 'inventory:awaiting_requisition' as awaiting_requisition %}
+            {% url 'inventory:admin_view_request' id as view_requisition %}
+            <a class="collapse-item {% if request.path == awaiting_requisition %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}"
+              href="{{ awaiting_requisition}}">Approval For Issueing</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Reports</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+    
+            {% url 'inventory:manage_inventory' as ManageInventory %}
+            <a class="collapse-item {% if request.path == ManageInventory %} active {% endif %}"
+              href="{{ ManageInventory }}">Inventory</a>
+    
+            {% url 'inventory:total_requisitions' as Total %}
+            <a class="collapse-item {% if request.path == Total %} active {% endif %}" href="{{Total}}">Total
+              Requisition</a>
+    
+            {% url 'inventory:product_forcast' as product_forcast %}
+            <a class="collapse-item {% if request.path == product_forcast %} active {% endif %}"
+              href="{{ product_forcast }}">Product Forcast</a>
+    
+            {% url 'inventory:Item_issued' as Item_issued %}
+            {% url 'inventory:admin_view_request' id as view_requisition %}
+            <a class="collapse-item {% if request.path == Item_issued %} active {% endif %}"
+              href="{{ Item_issued }}">History</a>
+          </div>
+        </div>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+      <hr class="sidebar-divider">
+    
+      <div style="height: 100px;">
+    
+      </div>
+    
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    
+    
+      <!-- Footer -->
+      {% include "footer.html" %}
+      <!-- End of Footer -->
+    
+    </ul>
+    {% elif group.name == 'hod' %}
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+          href="{% url 'inventory:Hoddashboard' %}">
+          <div class="sidebar-brand-icon">
+            <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+          </div>
+          <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+      </div>
+    
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div style="height: 20px;"></div>
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+          data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Home</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+      
+            {% url 'inventory:Hoddashboard' as hoddashboard %}
+            <a class="collapse-item {% if request.path == hoddashboar %} active {% endif %}"
+              href="{{ hoddashboar}}">Dashboard</a>
+      
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:hod_view_request' req.id as view_requisition %}
+            <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+              href="{{requisition}}">Requisition</a>
+      
+            {% url 'inventory:pending_requisition' as pendingrequisition %}
+            {% url 'inventory:hod_view_request' r.id as view_requisition %}
+            <a class="collapse-item {% if request.path == pendingrequisitio %} active {% endif %} {% if request.path == view_requisition %} active {% endif %}"
+              href="{{ pendingrequisition }}">Approve Requisition</a>
+
+            {% url 'inventory:manage_job_spec' as manage_job %}
+            <a class="collapse-item {% if request.path == manage_job %} active {% endif %} "
+              href="{{ manage_job }}">Job Certification</a>
+           
+          </div>
+        </div>
+      </li>
+      
+    
+      <!-- Divider -->
+     
+    
+     
+    
+      <hr class="sidebar-divider">
+    
+      <div style="height: 100px;">
+    
+      </div>
+    
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    
+    
+      <!-- Footer -->
+      {% include "footer.html" %}
+      <!-- End of Footer -->
+    
+    </ul>
+    
+    {% elif group.name == 'stores' %}
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+          href="{% url 'inventory:Stores_dashboard' %}">
+          <div class="sidebar-brand-icon">
+            <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+          </div>
+          <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+      </div>
+    
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div style="height: 20px;"></div>
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:Stores_dashboard' %}" data-toggle="collapse"
+          data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Home</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+      
+            {% url 'inventory:Stores_dashboard' as storesdashboard %}
+            <a class="collapse-item {% if request.path == storesdashboard %} active {% endif %}"
+              href="{{ storesdashboard }}">Dashboard</a>
+      
+            {% url 'inventory:create_requisition' as requisition %}
+            {% url 'inventory:add_requisition_details' as add_requisition %}
+            {% url 'inventory:stores_view_request' req.id as view_requisition %}
+            <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+              href="{{requisition}}">Requisition</a>
+      
+            {% url 'inventory:approved_requisition' as approve %}
+            <a class="collapse-item {% if request.path == approve %} active {% endif %}"
+              href="{{ approve }}">Issue Requisition</a>
+      
+            {% url 'inventory:create_job_specification' as create_job %}
+            {% url 'inventory:add_specification_details' rviv as add_specification_details %}
+            <a class="collapse-item {% if request.path == create_job %} active {% endif %} {% if request.path == add_specification_details %} active {% endif %}"
+              href="{{ create_job }}">Job Specification</a>
+
+            {% url 'inventory:manage_product' as Manage_Product %}
+            {% url 'inventory:create_product' as Product %}
+            {% url 'inventory:edit_product' r.id as edit_Product %}
+            {% url 'inventory:manage_category' as Manage_Category %}
+            {% url 'inventory:create_category' as Category %}
+            {% url 'inventory:edit_category' r.id as edit_Category %}
+            <a class="collapse-item {% if request.path == Manage_Product %} active {% endif %} {% if request.path == Product %} active {% endif %} {% if request.path == edit_Product %} active {% endif %} {% if request.path == manage_category %} active {% endif %} {% if request.path == Category %} active {% endif %} {% if request.path == edit_Categoryy %} active {% endif %}"
+              href="{{ Manage_Product }}">Products</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Reports</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded ">
+      
+            {% url 'inventory:manage_inventory' as ManageInventory %}
+            <a class="collapse-item {% if request.path == ManageInventory %} active {% endif %}"
+              href="{{ ManageInventory }}">Inventory</a>
+            
+            {% url 'inventory:manage_closing_stock' as manage_closing %}
+            <a class="collapse-item {% if request.path == manage_closing %} active {% endif %}"
+              href="{{ manage_closing }}">Closing Stock</a>
+      
+            {% url 'inventory:total_requisitions' as Total %}
+            <a class="collapse-item {% if request.path == Total %} active {% endif %}" href="{{Total}}">Total
+              Requisition</a>
+      
+            {% url 'inventory:product_forcast' as product_forcast %}
+            <a class="collapse-item {% if request.path == product_forcast %} active {% endif %}"
+              href="{{ product_forcast }}">Product Forcast</a>
+            
+            {% url 'inventory:restocking_level' as restock_level %}
+            <a class="collapse-item {% if request.path == restock_level %} active {% endif %}"
+              href="{{ restock_level }}">Restock Level</a>
+      
+            {% url 'inventory:Item_issued' as Item_issued %}
+            {% url 'inventory:admin_view_request' id as view_requisition %}
+            <a class="collapse-item {% if request.path == Item_issued %} active {% endif %}"
+              href="{{ Item_issued }}">History</a>
+          </div>
+        </div>
+      </li>
+      
+    
+      <div style="height: 100px;">
+    
+      </div>
+    
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    
+    
+      <!-- Footer -->
+      {% include "footer.html" %}
+      <!-- End of Footer -->
+    
+    </ul>
+{% endif %}
+  
+  
+{% endfor %}

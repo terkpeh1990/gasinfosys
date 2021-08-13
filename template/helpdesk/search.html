@@ -1,0 +1,87 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<form method="get" novalidate>
+  {% csrf_token %}
+  <div class="p-4">
+    <div class="right_col" role="main">
+      <div class="">
+    
+    
+        <div class="clearfix"></div>
+        <div class="row d-flex justify-content-center">
+          <div class=" col-md-12 col-sm-10 contents ">
+            <div class=" new_ticket">
+              <form class="ticket-form">
+    
+                <div class="form-row  ">
+    
+                  <div class="form-group col-md-6 col-sm-12">
+                    {{ myFilter.form.start_date|as_crispy_field }}
+                  </div>
+                  <div class="form-group col-md-6 col-sm-12">
+                    {{ myFilter.form.end_date|as_crispy_field }}
+                  </div>
+                </div>
+    
+                <div class="form-row">
+                  <div class="form-group col-md-12 col-sm-12">
+                    <button class="btn btn-sm btn-danger "> Submit </button>
+                  </div>
+                </div>
+    
+              </form>
+            </div>
+            <div>
+            </div>
+            <div class="table-responsive">
+    
+              <table id="example1" class="table " style="width:100%">
+                <thead>
+                  <tr class="headings">
+                    <th class="column-title">TICKET NO.</th>
+                    <th class="column-title">SUBJECT</th>
+                    <th class="column-title">STATUS</th>
+                    <th class="column-title">DATE </th>
+                    <th class="column-title">Region </th>
+                    <th class="column-title">District </th>
+    
+    
+                  </tr>
+                </thead>
+    
+    
+                <tbody>
+                  {% for tickets in total %}
+                  <tr>
+                    <td class="">{{ tickets.id}}</td>
+                    <td class="">{{ tickets.subject }}</td>
+                    <td class="">
+                      {% if tickets.status.id == 1 %}
+                      <span class="badge badge-pill badge-success">{{tickets.status}}</span>
+                      {% else %}
+                      <span class="badge badge-pill badge-danger">{{tickets.status}}</span>
+                      {% endif %}
+                    </td>
+                    <td class="">{{ tickets.ticket_date }}</td>
+                    <td class="">{{ tickets.region }}</td>
+                    <td class="">{{ tickets.district }}</td>
+    
+                  </tr>
+    
+                  {% endfor %}
+    
+    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</form>
+
+{% endblock content %}

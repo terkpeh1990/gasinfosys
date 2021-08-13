@@ -1,0 +1,126 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- page content -->
+{% block content %}
+
+<form id="ticket" method="POST" data-agent-url="{% url 'helpdesk:ajax_load_agent' %}"
+  data-district-url="{% url 'helpdesk:ajax_load_cities' %}" novalidate>
+  {% csrf_token %}
+  <div class="right_col" role="main">
+    <div class="">
+      <div class="page-title d-flex justify-content-center">
+        <div class="title_left">
+          <!-- <i class="fas fa-arrow-left"></i> -->
+          <!-- <span>Back</span> -->
+        </div>
+        <div class="title_right" style="color= white;">
+          <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+            <div class="input-group">
+              <!-- <i id="search_icon" class="fa fa-search"></i> -->
+              <!-- <input id="search_text" type="text" class="form-control" placeholder="Search for tickets..."> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="clearfix"></div>
+      <div class="row d-flex justify-content-center">
+        <div class=" col-md-10 col-sm-10 contents ">
+
+          <div class=" new_ticket">
+            <form class="ticket-form">
+
+              <div class="form-row  ">
+                <div class="form-group col-md-12 col-sm-12">
+                  {{ form.subject|as_crispy_field }}
+                </div>
+              </div>
+              <div class="form-row  ">
+
+                <div class="form-group col-md-12 col-sm-12">
+                  <label class="pt-3 ticket_title" for="staffid">Requester ID</label>
+                  <input class="form-control form-control rounded ticket_input" type="name" name="staffid"
+                    placeholder="Staff Id...">
+                </div>
+
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12 col-sm-12">
+                  {{ form.description|as_crispy_field }}
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4 col-sm-12">
+                  {{ form.agent_team|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  {{ form.agent|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 col-sm-12">
+                  {{ form.prority|as_crispy_field }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                  {{ form.region|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  {{ form.district|as_crispy_field }}
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12 col-sm-12">
+                  <button class="btn btn-md btn-primary"> Submit </button>
+                </div>
+              </div>
+          </div>
+
+
+</form>
+
+<script>
+  $("#id_agent_team").change(function () {
+    var url = $("#ticket").attr("data-agent-url");  // get the url of the `load_cities` view
+    var TeamId = $(this).val();  // get the selected country ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        'team': TeamId      // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+        $("#id_agent").html(data);  // replace the contents of the city input with the data that came from the server
+      }
+    });
+
+  });
+
+</script>
+
+<script>
+
+  $("#id_region").change(function () {
+    var url = $("#ticket").attr("data-district-url");  // get the url of the `load_cities` view
+    var RegionId = $(this).val();  // get the selected country ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+      data: {
+        'region': RegionId      // add the country id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_cities` view function
+        $("#id_district").html(data);  // replace the contents of the city input with the data that came from the server
+      }
+    });
+
+  });
+
+</script>
+{% endblock content %}
+
+
+
+
+<!-- jQuery -->

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-12">
+    <div class="card card-table p-4 m-4">
+        <form id="friend-form" role="form" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group mb-4 ml-2 col-6">
+                    <label for="">Item Requesting for </label>
+                    {{ form.product|as_crispy_field }}
+                </div>
+                <div class="form-group mb-4 col-5">
+                    <label for="">Quantity Requested</label>
+                    {{ form.quantity|as_crispy_field }}
+                </div>
+
+            </div>
+            <div class="make-request ml-2 ">
+                <button class="btn btn-dark">
+                    <span class="pl-2">Add</span>
+                    <i class="fas fa-plus pl-3"></i>
+                </button>
+                <a class="ml-4 request-done-btn px-4 btn btn-danger" href="{% url 'inventory:add_requisition_details' %}">
+                    <span>Set</span></a>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="items-table  mt-4 p-4">
+        <!-- table Requests -->
+        <div class="request-table d-flex justify-content-center">
+            <table class="request-table table col-10 " id="my_friends">
+                <thead class="  request-table-head">
+                    <tr>
+                        <th scope="col-6">Item ID</th>
+                        <th scope="col-4">Quantity</th>
+                        <th scope="col-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="request-table-body">
+                    {% for items in detail %}
+                    <tr>
+                        <td>{{items.product.name}}</td>
+                        <td>{{items.quantity}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-danger"  href="{% url 'inventory:delete_item' items.id  %}" >
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </td>
+                        
+
+                    </tr>
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="m-4 d-flex justify-content-end">
+            
+            <a class="m-4 request-done-btn px-4 btn btn-dark" href="{% url 'inventory:dones' %}"> <span>Done</span></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+
+<script>
+
+    $("#friend-form").submit(function (e) {
+        // preventing from page reload and default actions
+        e.preventDefault();
+        // serialize the data for sending the form data.
+        var serializedData = $(this).serialize();
+        // make POST ajax call
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'inventory:add_requisition_details' %}",
+            data: serializedData,
+            success: function (response) {
+                // on successfull creating object
+                // 1. clear the form.
+                $("#friend-form").trigger('reset');
+                // 2. focus to nickname input
+                $("#id_product").focus();
+
+                // display the newly friend to table.
+                var instance = JSON.parse(response["instance"]);
+                var fields = instance[0]["fields"];
+                $("#my_friends tbody").prepend(
+                    `<tr>
+                   <td>${fields["product"] || ""}</td>
+                   <td>${fields["quantity"] || ""}</td>
+                   </tr>`
+
+                )
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                
+                alert("All fields are mandatory !!!"); 
+            }
+        })
+    });
+
+</script>
+
+{% endblock content %}

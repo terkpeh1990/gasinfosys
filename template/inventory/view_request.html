@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card mx-auto container p-3 mt-5">
+    <div class="row">
+        <div class="col-4 m-4 p-4 card details-card">
+            <div class="m-2">
+                <span class="details-label col"> Batch code:</span>
+                <span class="details-info col align-self-end ">{{req.id}}</span>
+            </div>
+            <div class="m-2 ">
+                <span class="details-label col">Requester :</span>
+                <span class="details-info col ">{{req.staff.name}}</span>
+            </div>
+            
+            {% if req.status == "Approved" %}
+                <div class="m-2">
+                    <span class="details-label col mr-4">Status :</span>
+                
+                    <span class="badge badge-pill badge-success">{{req.status}}</span>
+                </div>
+            {% elif req.status == "Issued" %}
+                <div class="m-2">
+                    <span class="details-label col mr-4">Status :</span>
+                
+                    <span class="badge badge-pill badge-info">{{req.status}}</span>
+                </div>
+            {% else %}
+                <div class="m-2">
+                    <span class="details-label col mr-4">Status :</span>
+                    <span class="badge badge-pill badge-danger">{{req.status}}</span>
+                    
+                </div>
+            {% endif %}
+                
+            
+          
+                <div class="approve-btn-div">
+                    <a id="approve-btn" class="btn btn-sm btn-outline-primary ml-2 m-4 px-5"
+                        href="{% url 'inventory:User_dashboard'  %}">Close <i class="fas fa-minus pl-3"></i>
+                    </a>
+                </div>
+           
+                 
+                 
+           
+        </div>
+
+        <div class="card m-4 p-4 col items-details-card">
+            <div class="request-table d-flex justify-content-center">
+                <table class="request-table table col-10 ">
+                    <thead class="  request-table-head">
+                        <tr>
+                            <th scope="col-6">Description</th>
+                            <th scope="col-4">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="request-table-body">
+                        {% for item in detail %}
+                        <tr>
+                            <td>{{item.product}}</td>
+                            <td>{{item.quantity}}</td>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        
+                        
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

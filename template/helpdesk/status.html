@@ -1,0 +1,29 @@
+<div class="col-12 text-center">
+  <div class="tile_count">
+    <div class="col-md-3 col-sm-4  tile_stats_count">
+      <a href="{% url 'helpdesk:total' %}">
+        <span class="count_top text-primary "><i class="fa fa-user"></i> Total Tickets</span>
+        <div class="count green">{{ total_ticket }}</div>
+      </a>
+    </div>
+    <div class="col-md-3 col-sm-4  tile_stats_count">
+      <a href="{% url 'helpdesk:solved' %}">
+        <span class="count_top text-success"><i class="fa fa-clock-o"></i> Total Tickets solved </span>
+        <div class="count green">{{ ticket_solved }}</div>
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-4  tile_stats_count">
+      <a href="{% url 'helpdesk:open' %}">
+        <span class="count_top text-warning"><i class="fa fa-user"></i> Total Ticktets pending</span>
+        <div class="count green">{{ ticket_pending }}</div>
+      </a>
+    </div>
+    <div class="col-md-3 col-sm-4  tile_stats_count">
+      <a href="{% url 'helpdesk:closed' %}">
+        <span class="count_top text-danger"><i class="fa fa-user"></i> Total tickets closed</span>
+        <div class="count green">{{ ticket_closed }}</div>
+      </a>
+    </div>
+  </div>
+</div>

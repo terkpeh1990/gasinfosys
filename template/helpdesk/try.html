@@ -1,0 +1,242 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="p-4 ml-2">
+  <div class="main_container">
+    <div class="right_col" role="main">
+      <div class="">
+  
+  
+        <div class="clearfix"></div>
+        <form class="" method="post">
+          {% csrf_token %}
+          <div class="row ">
+            <div class="main" >
+              <div class="col-md-7  col-sm-12 mt-2  ">
+  
+              <div class=" row heading_dialogue  mb-4">
+                {% for group in user.groups.all %}
+                {% if group.name == 'agent' %}
+                <div class="title_left mb-2 col-6"><a href="{% url 'helpdesk:agentdashboard' %}">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back</span>
+                  </a>
+  
+                </div>
+                {% else %}
+                <div class="title_left mb-2 col-6"><a href="{% url 'helpdesk:helpdeskdashboard' %}">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back</span>
+                  </a>
+  
+                </div>
+                {% endif %}
+                {% endfor %}
+                <div class="col-6 align-items-right ">
+  
+                </div>
+              </div>
+              <div class="col-12 mx-auto">
+  
+                <div class="x_panel">
+                  <div class="x_title">
+                    
+                    <h5 class="pl-4" style="color: blue;">Ticket Comments </h5>
+  
+                    <div class="clearfix"></div>
+                  </div>
+  
+                  {% if ticket_detal %}
+                  {% for comment_detail in ticket_detal %}
+                  
+                    <div class="d-flex align-items-center">
+                      <div class="text-left p-4 ml-4"><img src="https://img.icons8.com/color/40/000000/guest-male.png" width="30"
+                          class="img1" /></div>
+                      <div class="pr-2 pl-1"> <span class="name">{{comment_detail.agent }} at {{comment_detail.creation_date}}</span>
+                        <p class="msg">{{comment_detail.content}}.</p>
+                      </div>
+                    </div>
+                  
+                  {% endfor %}
+                  {% endif %}
+                </div>
+  
+                {% comment %} <div class="card"> {% endcomment %}
+  
+                  {% comment %} <h5 class="">Record Comment</h5>
+                  <div class="card-body"> {% endcomment %}
+                    {% if request.user.profile.is_agent == True %}
+  
+                    <div class="form-row pl-4 ml-4 ">
+                      <div class=" col-md-12 col-sm-12">
+                        {{ ticketcoment.content|as_crispy_field }}
+                      </div>
+                    </div>
+                    <div class=" pl-4 ml-4 ">
+                      <div class="form-group col-md-12 col-sm-12">
+                        <button class="btn btn-md btn-danger "> Submit </button>
+                      </div>
+                    </div>
+                    {% endif %}
+  
+                    {% comment %}
+                  </div>
+  
+                </div> {% endcomment %}
+  
+              </div>
+  
+            </div>
+            </div>
+            
+  
+            <div class="col-md-5">
+              <div class="left_tabs">
+                <div class="heading_dialogue row ml-2">
+  
+                  
+  
+  
+                </div>
+                <div class="col-10 mx-auto">
+                  <div class="card ">
+                    <div class="card-body Responsibility ">
+                      <h5 class="mr-2" style="color: blue;">Ticket Info</h5>
+  
+                      <hr class="sidebar-divider">
+                      <div>
+                        <label class="text-muted" for=""> Ticket ID: <span class="details_tab" style="color: #424d57;">
+                            {{find_ticket.id}}</span> </label>
+                      </div>
+  
+  
+                      <hr class="sidebar-divider">
+  
+                      <label class="text-muted" for="">Created: <span class="details_tab" style="color: #424d57;">
+                          {{find_ticket.ticket_date}} at {{find_ticket.ticket_time}} </span></label>
+                      <!-- <p class="details_tab" style="color: #424d57;"></p> -->
+  
+                      <hr class="sidebar-divider">
+                      <label class="details_tab text-muted" for="">DeadLine: <span class="details_tab"
+                          style="color: #424d57;"> {{find_ticket.expected_date}} </span></label>
+  
+                      <hr class="sidebar-divider">
+  
+                      <label class="details_tab text-muted" for="">Status: <span class="details_tab"
+                          style="color: #424d57;"> {{find_ticket.status}} </span> </label>
+  
+                      <hr class="sidebar-divider">
+                      {% if find_ticket.prority.level_name == 'High' %}
+  
+                      <label class="details_tab text-muted" for="">Prority: <span class="details_tab"
+                          style="color: #424d57;"> {{find_ticket.prority}} (24hrs) </span></label>
+                      
+                      {% elif find_ticket.prority.level_name == 'medium' %}
+  
+                      <label class="details_tab text-muted" for="">Prority: <span class="details_tab"
+                          style="color: #424d57;"> {{find_ticket.prority}} (48hrs) </span></label>
+  
+                      {% else %}
+  
+                      <label class="details_tab text-muted" for="">Prority: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.prority}} (72hrs) </span></label>
+  
+                      {% endif %}
+                      <hr class="sidebar-divider">
+  
+                      <label class="details_tab text-muted" for="">Closed Date: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.close_date}} </span></label>
+  
+                      <hr class="sidebar-divider">
+  
+                      <label class="details_tab text-muted" for="">Ticket Duration: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.completed_days}} </span></label>
+  
+                      <hr class="sidebar-divider">
+  
+                      <label class="details_tab text-muted" for="">Region/Office Location: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.region}} </span></label>
+  
+                      <hr class="sidebar-divider">
+                      <label class="details_tab text-muted" for="">Section/Branch/District: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.district}} </span></label>
+                      <p class="details_tab" style="color: #424d57;"></p>
+  
+                    </div>
+                  </div>
+                </div>
+  
+  
+                {% if find_ticket %}
+                <div class="col-10 mx-auto">
+                  <div class="card mt-3">
+                    <div class="card-body Responsibility ">
+                      <h5 class="mr-2" style="color: blue;">Responsibility</h5>
+  
+                      <hr class="sidebar-divider">
+                      <label class="details_tab text-muted" for="">Agent: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{find_ticket.agent}} </span></label>
+  
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% if escalated_details %}
+                <div class="col-10 mx-auto">
+                  <div class="card mt-3 ">
+                    <div class="card-body Responsibility ">
+                      <h5 class="mr-2" style="color: blue;">Escalated Agents</h5>
+  
+                      <hr class="sidebar-divider">
+                      {% for agents in escalated_details %}
+  
+                      <label class="details_tab text-muted" for="">Agent: <span class="details_tab"
+                          style="color: #424d57;">
+                          {{agents.agent}} </span></label>
+  
+                      <hr class="sidebar-divider">
+  
+                      <label class="details_tab text-muted" for="">Date:<span class="details_tab" style="color: #424d57;">
+                          {{agents.escalated_date}} </span></label>
+  
+  
+                      <hr class="sidebar-divider">
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+  
+              </div>
+  
+  
+            </div>
+  
+          </div>
+      </div>
+      </form>
+  
+    </div>
+    <!-- /page content -->
+  
+    <!--footer content-->
+    <!-- <footer>-->
+    <!--  <div class="pull-right">-->
+    <!--    Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>-->
+    <!--  </div>-->
+    <!--  <div class="clearfix"></div>-->
+    <!--</footer>-->
+    <!--footer content-->
+  </div>
+</div>
+
+</div>
+
+{% endblock content %}

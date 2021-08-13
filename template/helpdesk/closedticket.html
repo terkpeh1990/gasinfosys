@@ -1,0 +1,120 @@
+{% extends "helpdeskbase.html" %}
+{% load static %}
+
+
+<!-- /top navigation -->
+{% block content %}
+<!-- {{ content }} -->
+
+<!-- page content -->
+<div class="p-4">
+  <div class="right_col" role="main">
+    <div class="">
+  
+  
+      <div class="clearfix"></div>
+      {% if total %}
+  
+  
+      <div class="row mt-3">
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title justify-content-center">
+  
+              <!-- <div class="title_heading ">
+                      <h2>All Tickets you have raised</h2>
+                    </div> -->
+  
+              <div class="clearfix"></div>
+            </div>
+  
+            <div class="x_content">
+  
+              <!-- <p id="below_btn">{{ total_ticket }} tickets </p> -->
+              
+              <div class="table-responsive">
+  
+                <table id="example1" class="table " style="width:100%">
+                  <thead>
+                    <tr class="headings">
+                      <th class="column-title">TICKET NO.</th>
+                      <th class="column-title">SUBJECT</th>
+                      <th class="column-title">STATUS</th>
+                      <th class="column-title">DATE </th>
+                      <th class="column-title">ACTIONS</th>
+  
+                    </tr>
+                  </thead>
+  
+  
+                  <tbody>
+                    {% for tickets in total %}
+                    <tr>
+                      {% for group in user.groups.all %}
+                      {% if group.id == 2 %}
+                      <td class="">{{ tickets.ticketid}}</td>
+                      {% else %}
+                      <td class="">{{ tickets.id}}</td>
+                      {% endif %}
+                      {% endfor %}
+                      <td class="">{{ tickets.subject }}</td>
+                      <td class="">
+                        {% if tickets.status.id == 2 %}
+                        <span class="badge badge-pill badge-danger">{{tickets.status}}</span>
+                        {% else %}
+                        <span class="badge badge-pill badge-success">{{tickets.status}}</span>
+                        {% endif %}
+                      </td>
+                      <td class="">{{ tickets.ticket_date }}</td>
+                      {% for group in user.groups.all %}
+                      {% if group.id == 1 %}
+                      <td class=""><a href="{% url 'helpdesk:edituserticket' tickets.id  %}"
+                          class=" btn btn-sm btn-outline-warning">EDIT</a><a
+                          href="{% url 'helpdesk:userticketdetails' tickets.id  %}"
+                          class="btn btn-sm btn-outline-primary">VIEW</a>
+                        {% elif group.id == 2 %}
+                      <td class=""><a href="{% url 'helpdesk:editticket' tickets.ticketid  %}"
+                          class=" btn btn-sm btn-outline-warning">View</a><a
+                          href="{% url 'helpdesk:detail' tickets.ticketid %}"
+                          class="btn btn-sm btn-outline-primary">COMMENT</a>
+                        {% elif group.id == 3 %}
+                      <td class=""><a href="{% url 'helpdesk:edittickethelp' tickets.id  %}"
+                          class=" btn btn-sm btn-outline-warning">View</a><a
+                          href="{% url 'helpdesk:detail' tickets.id  %}"
+                          class="btn btn-sm btn-outline-primary">COMMENT</a>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+  
+  
+                  </tbody>
+                </table>
+              </div>
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+      {% else %}
+  
+      <div class="jumbotron">
+        <div class="col-md-10 mx-auto">
+          <p class="d-flex justify-content-center"><b>NO TICKETS </b></p>
+        </div>
+      </div>
+  
+  
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
+
+
+<!-- jQuery -->

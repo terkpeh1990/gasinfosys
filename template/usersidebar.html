@@ -1,0 +1,68 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center " href="User-dashboard.html">
+            <div class="sidebar-brand-icon">
+                <img class="logo" src="/Admin Dashboard/startbootstrap-sb-admin-2-gh-pages/img/logo.png" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-2">GAS_ICS </div>
+        </a>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div style="height: 20px;"></div>
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item ">
+        <a class="nav-link  " href="User-dashboard.html">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    {% url 'inventory:create_requisition' as requisition %}
+    {% url 'inventory:add_requisition_details' as add_requisition %}
+    <li
+        class="nav-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}">
+
+        <a href="{% url 'inventory:create_requisition'  %}" class="nav-link ">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Requisition</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+
+    <hr class="sidebar-divider">
+
+    <!-- Divider -->
+    {% url 'inventory:Assigned_Job' as assigned_job %}
+    {% url 'inventory:job_spec_view' rviv as job_spec_view %}
+    <li
+        class="nav-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_view %} active {% endif %}">
+        <a class="nav-link" href="{% url 'inventory:Assigned_Job' %}">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Job specification</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+
+    <hr class="sidebar-divider">
+
+    <div style="height: 100px;">
+
+    </div>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+    <!-- End of Footer -->
+
+</ul>

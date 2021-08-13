@@ -1,0 +1,68 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!-- page content -->
+{% block content %}
+<form method="POST" novalidate>
+  {% csrf_token %}
+  <div class="p-4">
+    <div class="right_col " role="main">
+      <div class="">
+    
+    
+        <div class="clearfix"></div>
+        <div class="row d-flex justify-content-center">
+          <div class=" col-md-10 col-sm-10 contents ">
+            <div class=" new_ticket">
+    
+              <h5> Ticket no. {{ticket.id}} </h5>
+              <h5>
+                {% if tickets.status.id == 2 %}
+                <span class="badge badge-pill badge-danger">Status : {{ticket.status}}</span>
+                {% else %}
+                <span class="badge badge-pill badge-success">Status : {{ticket.status}}</span>
+                {% endif %}
+    
+              </h5>
+              <form class="ticket-form">
+    
+                <div class="form-row  ">
+                  <div class="form-group col-md-8 col-sm-12">
+                    {{ form.subject|as_crispy_field }}
+                  </div>
+    
+                  <div class="form-group col-md-4 col-sm-12">
+                    {{ form.ticket_date|as_crispy_field }}
+                  </div>
+                </div>
+    
+                <div class="form-row">
+                  <div class="form-group col-md-12 col-sm-12">
+                    {{ form.description|as_crispy_field }}
+                  </div>
+                </div>
+    
+                <div class="form-row">
+                  <div class="form-group col-md-12 col-sm-12">
+                    <a class=" btn btn-md btn-primary" href="{% url 'helpdesk:edituserticket' ticket.id  %}">Edit</a>
+                  </div>
+                </div>
+              </form>
+    
+    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</form>
+
+{% endblock content %}
+
+
+
+
+<!-- jQuery -->

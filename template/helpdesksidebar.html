@@ -1,0 +1,390 @@
+{% load static %}
+{% for group in request.user.groups.all %} 
+{% if group.name == 'standarduser' or group.name == 'hod' or group.name == 'stores' or group.name == 'admin' %}
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+            href="{% url 'helpdesk:userdashboard' %}">
+            <div class="sidebar-brand-icon">
+                <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div style="height: 20px;"></div>
+
+
+
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'helpdesk:userdashboard' %}" data-toggle="collapse"
+            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Helpdesk</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:userdashboard' as manage_ticket %}
+                {% url 'helpdesk:Newticket' as new_ticket %}
+                {% url 'helpdesk:edituserticket' id as edit_ticket %}
+                <a class="collapse-item {% if request.path == manage_ticket %} active {% endif %} {% if request.path == new_ticket %} active {% endif %} {% if request.path == edit_ticket %} active {% endif %}"
+                    href="{{ manage_ticket }}">Tickets</a>
+            </div>
+        </div>
+    </li>
+
+
+    <div style="height: 100px;">
+
+    </div>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+    <!-- End of Footer -->
+
+</ul>
+{% elif group.name == 'agent' %}
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+            href="{% url 'helpdesk:agentdashboard' %}">
+            <div class="sidebar-brand-icon">
+                <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-2 " style="color:red">INFOSYS</div>
+        </a>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div style="height: 20px;"></div>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'helpdesk:agentdashboard' %}" data-toggle="collapse"
+            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Home</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:ticketescalated' as escalated_ticket %}
+                <a class="collapse-item {% if request.path == escalated_ticket %} active {% endif %}"
+                    href="{{escalated_ticket}}" class="nav-link ">
+
+                    Escalated Tickets
+                </a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+            data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Inventory</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+    
+                {% url 'inventory:User_dashboard' as userdashboard %}
+                <a class="collapse-item {% if request.path == userdashboard %} active {% endif %}"
+                    href="{{ userdashboard }}">Manage Requisition</a>
+    
+                {% url 'inventory:create_requisition' as requisition %}
+                {% url 'inventory:add_requisition_details' as add_requisition %}
+                {% url 'inventory:view_reques' req.id as view_requisition %}
+                <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+                    href="{{requisition}}">Requisition</a>
+    
+                {% url 'inventory:Assigned_Job' as assigned_job %}
+                {% url 'inventory:job_spec_view' jobspec.rviv as job_spec_views %}
+                <a class="collapse-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}"
+                    href="{{ assigned_job}}">Job specification</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+
+
+
+
+    <!-- Divider -->
+   
+
+   
+
+    <!-- Divider -->
+
+    <div style="height: 100px;">
+
+    </div>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+    <!-- End of Footer -->
+
+</ul>
+{% elif group.name == 'director' %}
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center "
+            href="{% url 'helpdesk:sup' %}">
+            <div class="sidebar-brand-icon">
+                <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div style="height: 20px;"></div>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'helpdesk:sup' %}" data-toggle="collapse"
+            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Home</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:website' as ticket %}
+                <a class="collapse-item {% if request.path == ticket  %} active {% endif %}" href="{{ticket }}"
+                    class="nav-link ">
+                    New Ticket
+                </a>
+
+                {% url 'helpdesk:awaitingticket' as awaitingticket %}
+                <a class="collapse-item {% if request.path == awaitingticket %} active {% endif %}"
+                    href="{{awaitingticket}}" class="nav-link ">
+
+                    Awaiting Escalation
+                </a>
+                {% url 'inventory:User_dashboard' as userdashboard %}
+                <a class="collapse-item {% if request.path == userdashboard %} active {% endif %}" href="{{ userdashboard }}">Manage
+                    Requisition</a>
+                
+                {% url 'inventory:create_requisition' as requisition %}
+                {% url 'inventory:add_requisition_details' as add_requisition %}
+                {% url 'inventory:view_reques' req.id as view_requisition %}
+                <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+                    href="{{requisition}}">Requisition</a>
+                
+                {% url 'inventory:Assigned_Job' as assigned_job %}
+                {% url 'inventory:job_spec_view' jobspec.rviv as job_spec_views %}
+                <a class="collapse-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}"
+                    href="{{ assigned_job}}">Job specification</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+            data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Reports</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:open' as opened_Tickets %}
+                <a class="collapse-item {% if request.path == opened_Tickets %} active {% endif %}"
+                    href="{{ opened_Tickets }}">Opened Tickets</a>
+
+                {% url 'helpdesk:closed' as closed %}
+                
+                <a class="collapse-item {% if request.path == closed %} active {% endif %}"
+                    href="{{closed}}">Closed Tickets</a>
+
+                {% url 'helpdesk:solved' as solved %}
+                <a class="collapse-item {% if request.path == solved %} active {% endif %}" href="{{ solved }}">Solved
+                    Tickets</a>
+
+                {% url 'helpdesk:delayedtickets' as delayedtickets %}
+               
+                <a class="collapse-item {% if request.path == delayedtickets %} active {% endif %}"
+                    href="{{ delayedtickets }}">Delayed Tickets</a>
+                
+                {% url 'helpdesk:solvedontime' as solvedontime %}
+                <a class="collapse-item {% if request.path == solvedontime %} active {% endif %}" href="{{ solvedontime }}">Solved on time</a>
+
+                {% url 'helpdesk:notsolvedontime' as notsolvedontime %}
+                <a class="collapse-item {% if request.path == notsolvedontime %} active {% endif %}" href="{{ notsolvedontime }}">Not Solved On Time</a>
+
+                {% url 'helpdesk:auditlog' as auditlog %}
+                <a class="collapse-item {% if request.path == auditlog %} active {% endif %}" href="{{ auditlog }}">Audit Trail</a>
+               
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+
+
+
+
+    <!-- Divider -->
+
+
+
+
+    <!-- Divider -->
+
+    <div style="height: 100px;">
+
+    </div>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+    <!-- End of Footer -->
+
+</ul>
+{% elif group.name == 'helpdesk' %}
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <div class="logo-area">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center " href="{% url 'helpdesk:helpdeskdashboard' %}">
+            <div class="sidebar-brand-icon">
+                <img class="logo" src="{% static 'img/logo.png' %}" alt="">
+            </div>
+            <div class="sidebar-brand-text mx-2" style="color:red">INFOSYS</div>
+        </a>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <div style="height: 20px;"></div>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'helpdesk:helpdeskdashboard' %}" data-toggle="collapse"
+            data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Home</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:ticket' as ticket %}
+                <a class="collapse-item {% if request.path == ticket  %} active {% endif %}" href="{{ticket }}"
+                    class="nav-link ">
+                    New Ticket
+                </a>
+
+                {% url 'helpdesk:waitingclosure' as waitingclosure %}
+                <a class="collapse-item {% if request.path == waitingclosure %} active {% endif %}"
+                    href="{{waitingclosure}}" class="nav-link ">
+
+                    Close Ticket
+                </a>
+                {% url 'inventory:User_dashboard' as userdashboard %}
+                <a class="collapse-item {% if request.path == userdashboard %} active {% endif %}"
+                    href="{{ userdashboard }}">Manage Requisition</a>
+
+                {% url 'inventory:create_requisition' as requisition %}
+                {% url 'inventory:add_requisition_details' as add_requisition %}
+                {% url 'inventory:view_reques' req.id as view_requisition %}
+                <a class="collapse-item {% if request.path == requisition %} active {% endif %} {% if request.path == add_requisition %} active {% endif %}{% if request.path == view_requisition %} active {% endif %}"
+                    href="{{requisition}}">Requisition</a>
+
+                {% url 'inventory:Assigned_Job' as assigned_job %}
+                {% url 'inventory:job_spec_view' jobspec.rviv as job_spec_views %}
+                <a class="collapse-item {% if request.path == assigned_job %} active {% endif %} {% if request.path == job_spec_views %} active {% endif %}"
+                    href="{{ assigned_job}}">Job specification</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link collapsed " href="{% url 'inventory:User_dashboard' %}" data-toggle="collapse"
+            data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Reports</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded ">
+
+                {% url 'helpdesk:open' as opened_Tickets %}
+                <a class="collapse-item {% if request.path == opened_Tickets %} active {% endif %}"
+                    href="{{ opened_Tickets }}">Opened Tickets</a>
+
+                {% url 'helpdesk:closed' as closed %}
+
+                <a class="collapse-item {% if request.path == closed %} active {% endif %}" href="{{closed}}">Closed
+                    Tickets</a>
+
+                {% url 'helpdesk:solved' as solved %}
+                <a class="collapse-item {% if request.path == solved %} active {% endif %}" href="{{ solved }}">Solved
+                    Tickets</a>
+
+                {% url 'helpdesk:delayedtickets' as delayedtickets %}
+
+                <a class="collapse-item {% if request.path == delayedtickets %} active {% endif %}"
+                    href="{{ delayedtickets }}">Delayed Tickets</a>
+
+                {% url 'helpdesk:solvedontime' as solvedontime %}
+                <a class="collapse-item {% if request.path == solvedontime %} active {% endif %}"
+                    href="{{ solvedontime }}">Solved on time</a>
+
+                {% url 'helpdesk:notsolvedontime' as notsolvedontime %}
+                <a class="collapse-item {% if request.path == notsolvedontime %} active {% endif %}"
+                    href="{{ notsolvedontime }}">Not Solved On Time</a>
+
+                {% url 'helpdesk:auditlog' as auditlog %}
+                <a class="collapse-item {% if request.path == auditlog %} active {% endif %}"
+                    href="{{ auditlog }}">Audit Trail</a>
+
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+
+
+
+
+    <!-- Divider -->
+
+
+
+
+    <!-- Divider -->
+
+    <div style="height: 100px;">
+
+    </div>
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+    <!-- Footer -->
+    {% include "footer.html" %}
+    <!-- End of Footer -->
+
+</ul>
+
+{% endif %}
+{% endfor %}

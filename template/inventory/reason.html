@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form role="form" method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="card card-table p-4 m-4">
+        <div class="row">{{jobspec}}
+
+            <div class="form-group mb-4 col-12">
+                {{ form.reason|as_crispy_field }}
+            </div>
+
+            <div class="ml-2 p-3 mt-5 d-flex justify-content-end">
+                <button id="next-page-btn" class="btn px-4 btn-large"><span class="px-2">Save</span><i
+                        class="fas fa-arrow-right pr-1"></i></button>
+
+           
+
+        </div>
+</form>
+
+{% endblock content %}

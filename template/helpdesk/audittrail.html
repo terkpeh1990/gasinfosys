@@ -1,0 +1,152 @@
+{% extends "helpdeskbase.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+<!-- /top navigation -->
+{% block content %}
+<!-- {{ content }} -->
+
+<!-- page content -->
+<form class="" method="get" novalidate>
+    <div class="p-4">
+        <div class="right_col" role="main">
+            <div class="">
+        
+        
+                <div class="clearfix"></div>
+                {% if total %}
+        
+        
+                <div class="row mt-3">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title justify-content-center">
+        
+                                <!-- <div class="title_heading ">
+                            <h2>All Tickets you have raised</h2>
+                          </div> -->
+        
+                                <div class="clearfix"></div>
+                            </div>
+        
+                            <div class="x_content">
+                                <div class="row d-flex justify-content-center">
+                                    <div class=" col-md-12 col-sm-10 contents ">
+                                        <div class=" new_ticket">
+                                            <form class="ticket-form">
+                                                <div class="form-row  ">
+                                                    <div class="form-group col-md-3 col-sm-6">
+                                                        {{ myFilter.form.id|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-6">
+                                                        {{ myFilter.form.start_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-6">
+                                                        {{ myFilter.form.end_date|as_crispy_field }}
+                                                    </div>
+                                                    <div class="form-group col-md-3 col-sm-6">
+                                                        {{ myFilter.form.region|as_crispy_field }}
+                                                    </div>
+                                                </div>
+        
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4 col-sm-12">
+                                                        <button class="btn btn-sm btn-primary "> Search </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- <p id="below_btn">{{ total_ticket }} tickets </p> -->
+        
+        
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <table id="example1" class="table  table-striped table-hover col-8 text-center" role="grid"
+                                                        aria-describedby="example2_info" >
+                                                            <thead>
+                                                                <tr class="headings">
+                                                                    <th class="column-title">TICKET NO.</th>
+                                                                    <th class="column-title">DATE </th>
+                                                                    <th class="column-title">SUBJECT </th>
+                                                                    <th class="column-title">STATUS</th>
+                                                                    <th class="column-title">OWNER</th>
+                                                                    <th class="column-title">EVENT TYPE</th>
+                                                                    <th class="column-title">EVENT DATE </th>
+                                                                    <th class="column-title">EVENT STAFF </th>
+                                                                </tr>
+                                                            </thead>
+                                                        
+                                                        
+                                                            <tbody>
+                                                                {% for tickets in total %}
+                                                                <tr>
+                                                        
+                                                                    <td class="">{{ tickets.id}}</td>
+                                                                    <td class="">{{ tickets.ticket_date }}</td>
+                                                                    <td class="">{{ tickets.subject }}</td>
+                                                                    <td class="">
+                                                                        {% if tickets.status.id == 1 %}
+                                                                        <span class="badge badge-pill badge-success">{{tickets.status}}</span>
+                                                                        {% else %}
+                                                                        <span class="badge badge-pill badge-danger">{{tickets.status}}</span>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                    <td class="">{{ tickets.name.user.username }}</td>
+                                                                    <td class="">
+                                                                        {% if tickets.history_type == '~' %}
+                                                                        <span class="badge badge-pill badge-warning">Updated</span>
+                                                                        {% elif tickets.history_type == '-' %}
+                                                                        <span class="badge badge-pill badge-danger">Deleted</span>
+                                                                        {% else %}
+                                                                        <span class="badge badge-pill badge-success">Created</span>
+                                                                        {% endif %}
+                                                                    </td>
+                                                                    <td class="">{{ tickets.history_date}}</td>
+                                                                    <td class="">{{ tickets.history_user.username}}</td>
+                                                                </tr>
+                                                                {% endfor %}
+                                                        
+                                                        
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+        
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="">
+        
+                </div>
+                {% else %}
+        
+                <div class="jumbotron">
+                    <div class="col-md-10 mx-auto">
+                        <p class="d-flex justify-content-center"><b>NO TICKETS </b></p>
+                    </div>
+                </div>
+        
+        
+                {% endif %}
+            </div>
+        </div>
+    </div>
+   
+</form>
+
+
+{% endblock content %}
+
+
+<!-- jQuery -->
